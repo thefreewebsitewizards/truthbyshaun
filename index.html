@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRUTH BY SHAUN | Motivation & Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Coterie';
+            src: url('https://fonts.cdnfonts.com/css/coterie') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #F6F1F1;
+        }
+        
+        .brand-font {
+            font-family: 'Coterie', sans-serif;
+        }
+        
+        .animated-text {
+                background: 50% 100% / 50% 50% no-repeat 
+                           radial-gradient(ellipse at bottom, #fff, transparent, transparent);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                animation: reveal 3000ms ease-in-out forwards 200ms, 
+                          glow 2500ms linear infinite 2000ms;
+            }
+            
+            @keyframes reveal {
+                80% {
+                    letter-spacing: 8px;
+                }
+                100% {
+                    background-size: 300% 300%;
+                }
+            }
+            
+            @keyframes glow {
+                40% {
+                    text-shadow: 0 0 8px #fff;
+                }
+            }
+        
+        .hero-video {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .hero-video video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -2;
+        }
+        
+        .hero-video::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            z-index: -1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Hidden - now integrated into hero) -->
+    <nav class="hidden">
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-video flex flex-col text-white relative">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline>
+            <source src="Images/vid1.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+            <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; height: 100vh;"></div>
+        </video>
+        <!-- Hero Navigation -->
+        <div class="w-full pt-8 pb-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="hidden md:flex items-center justify-center">
+                    <div class="flex items-center space-x-12">
+                        <a href="#home" class="text-white hover:text-gray-400 px-3 py-2 text-sm font-medium tracking-wider">HOME</a>
+                        <a href="#about" class="text-white hover:text-gray-400 px-3 py-2 text-sm font-medium tracking-wider">ABOUT</a>
+                        <div class="mx-8">
+                            <a href="#home" class="brand-font text-3xl font-semibold text-white hover:text-gray-400 transition duration-300">TRUTH BY SHAUN</a>
+                        </div>
+                        <a href="#services" class="text-white hover:text-gray-400 px-3 py-2 text-sm font-medium tracking-wider">SERVICES</a>
+                        <a href="#connect" class="text-white hover:text-gray-400 px-3 py-2 text-sm font-medium tracking-wider">CONTACT</a>
+                    </div>
+                </div>
+                <!-- Mobile Navigation for Hero -->
+                <div class="md:hidden flex justify-between items-center">
+                    <div class="w-8"></div>
+                    <a href="#home" class="brand-font text-2xl font-bold text-white" style="font-family: Coterie;">TRUTH BY SHAUN</a>
+                    <button id="hero-mobile-menu-button" class="text-white hover:text-black focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hero Mobile menu -->
+            <div id="hero-mobile-menu" class="hidden md:hidden bg-black bg-opacity-90">
+                <div class="px-2 pt-2 pb-3 space-y-1 py-12 sm:px-6 text-center mt-8">
+                       <a href="#home" class=" mt-4 items-center text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <i class="fas fa-home"></i> HOME
+                        </a>
+                        <a href="#about" class="text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <i class="fas fa-user"></i> ABOUT
+                        </a>
+                        <a href="#services" class="text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <i class="fas fa-dumbbell"></i> SERVICES
+                        </a>
+                        <a href="#connect" class="text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <i class="fas fa-phone-alt"></i> CONTACT
+                        </a>
+                    <div class="flex justify-center space-x-4 py-4">
+                        <a href="https://www.facebook.com/profile.php?id=61577604267763" class="text-[#19A7CE] hover:text-white"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://www.instagram.com/truthbyshaun" class="text-[#19A7CE] hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="flex-1 flex items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-20">
+            <div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 animated-text" style="font-family: Coterie;">121 with SHAUN</h1>
+                <h2 class="text-xl md:text-2xl font-semibold mb-6">MOTIVATION | FITNESS | FAMILY</h2>
+                <div class="mt-10">
+                    <a href="#services" class="bg-[#19A7CE] hover:bg-[#146C94] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block">GET STARTED</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20" style="background: linear-gradient(135deg, #19A7CE 0%,  #F6F1F1 10%, #F6F1F1 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2">
+                    <img src="https://scontent-nrt1-1.xx.fbcdn.net/v/t39.30808-6/506988320_122096322584920142_2560974708250267544_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeFeM5vjKmioybMjYUcFxC90dsZbdGSYiWR2xlt0ZJiJZGBgqEpMX1TVEyBs2Gulz-UqVmUiLbPSMSBYERmBQW7d&_nc_ohc=mDDtWxdP7rcQ7kNvwGDW_WE&_nc_oc=Adl01U8I5ADDX0-frj4MXqnKclQmEgSUAeqaT5-Jie9EdJqKYVF4WxS7YPz5qNILdMQ&_nc_zt=23&_nc_ht=scontent-nrt1-1.xx&_nc_gid=l0h4WCaM8ap_Dmlb2rgTJA&oh=00_AfTvLwNxl1_VrX3Tmjwr8CqjFXNy5jnk4YSOneU1XYHyRg&oe=687BFDA1" alt="Shaun Training" class="md:ml-12 rounded-lg shadow-xl w-[500px] h-[500px]" style="animation: floatUpDown 4s ease-in-out infinite;">
+                </div>
+                <div class="md:w-1/2 mb-2 md:mb-0 relative">
+                    <!-- Decorative Background Element -->
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#19A7CE] opacity-20 rounded-full blur-xl"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#146C94] opacity-15 rounded-full blur-2xl"></div>
+                    
+                    <!-- Main Content -->
+                    <div class="relative z-10  md:mt-0 mt-8">
+                        <!-- Title Section -->
+                        <div class="text-center mb-8">
+                            <div class="inline-block relative">
+                                <h2 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#146C94] to-[black] mb-2" style="font-family: Coterie;">Meet Shaun Jones</h2>
+                                <div class="w-24 h-1 bg-gradient-to-r from-[#19A7CE] to-[#146C94] mx-auto rounded-full"></div>
+                                <div class="w-12 h-1 bg-gradient-to-r from-[#146C94] to-[#19A7CE] mx-auto mt-1 rounded-full"></div>
+                            </div>
+                        
+                        </div>
+                        
+                        <!-- Content Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-[#19A7CE] rounded-full mt-2 flex-shrink-0"></div>
+                                <p class="text-gray-800 leading-relaxed">With over a decade of experience in fitness training and motivational coaching, Shaun has dedicated his life to helping others break through their limits and achieve their full potential.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-[#146C94] rounded-full mt-2 flex-shrink-0"></div>
+                                <p class="text-gray-800 leading-relaxed">His unique approach combines physical training with mental resilience techniques, creating a holistic path to success that transforms not just bodies, but lives.</p>
+                            </div>
+                           
+                        </div>
+                        
+                        <!-- Quote Section -->
+                        <div class="my-8 p-4 bg-gradient-to-r from-[#19A7CE] to-[#146C94] rounded-lg text-white text-center">
+                            <i class="fas fa-quote-left text-2xl mb-2 opacity-70"></i>
+                            <p class="font-semibold text-lg italic">"Your only limit is the one you set for yourself"</p>
+                            <p class="text-sm mt-2 opacity-90">- Shaun Jones</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+     <!-- Services Section -->
+    <section id="services" class="py-20" style="background: linear-gradient(135deg, #F6F1F1 30%, #19A7CE 100%, #F6F1F1 100%);">
+        <div class="container mx-auto px-4">
+            <h2 class="text-center text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#146C94] to-[black] mb-2" style="font-family: Coterie;">121 Coaching with Shaun</h2>
+            <p class="md:text-lg text-sm text-center mb-12 max-w-2xl mx-auto">
+                Whether you're looking to level up physically, mentally, or spiritually — Shaun offers personalized 1-on-1 sessions designed to create real progress.
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-8">
+                <!-- Service Card 1 -->
+                <div class="service-card bg-gradient-to-br from-white to-[#F6F1F1] p-8 rounded-2xl shadow-lg hover:shadow-2xl flex-1 transition-all duration-500 transform hover:-translate-y-2 border border-white border-opacity-50 relative overflow-hidden group">
+                    <!-- Background Decoration -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#19A7CE] to-[#146C94] opacity-5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#146C94] to-[#19A7CE] opacity-5 rounded-full transform -translate-x-12 translate-y-12 group-hover:scale-125 transition-transform duration-700"></div>
+                    
+                    <div class="text-center relative z-10">
+                        <!-- Icon Container -->
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#19A7CE] to-[#146C94] rounded-full mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-phone-alt text-2xl text-white"></i>
+                        </div>
+                        
+                        <h3 class="coterie-font text-2xl font-bold mb-2 text-gray-800">Phone Call</h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-[#19A7CE] to-[#146C94] mx-auto mb-6 rounded-full"></div>
+                        
+                        <!-- Pricing Section -->
+                        <div class="bg-white bg-opacity-70 rounded-xl p-4 mb-6 backdrop-blur-sm">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-[#19A7CE] to-[#146C94] rounded-lg text-white">
+                                    <span class="font-semibold">30 minutes</span>
+                                    <span class="text-xl font-bold">£30</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-[#146C94] to-[#19A7CE] rounded-lg text-white">
+                                    <span class="font-semibold">1 hour</span>
+                                    <span class="text-xl font-bold">£50</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Description -->
+                        <p class="text-gray-600 mb-6 leading-relaxed">To discuss anything you like or that you need help with</p>
+                        
+                        <a href="#connect" class="bg-gradient-to-r from-[#19A7CE] to-[#146C94] hover:from-[#146C94] hover:to-[#19A7CE] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 inline-block text-center">
+                            <i class="fas fa-phone mr-2"></i>Let's Connect
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="service-card bg-gradient-to-br from-white to-[#F6F1F1] p-8 rounded-2xl shadow-lg hover:shadow-2xl flex-1 transition-all duration-500 transform hover:-translate-y-2 border border-white border-opacity-50 relative overflow-hidden group">
+                    <!-- Background Decoration -->
+                    <div class="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-[#146C94] to-[#19A7CE] opacity-5 rounded-full transform -translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-[#19A7CE] to-[#146C94] opacity-5 rounded-full transform translate-x-12 translate-y-12 group-hover:scale-125 transition-transform duration-700"></div>
+                    
+                    <div class="text-center relative z-10">
+                        <!-- Icon Container -->
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#146C94] to-[#19A7CE] rounded-full mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-video text-2xl text-white"></i>
+                        </div>
+                        
+                        <h3 class="coterie-font text-2xl font-bold mb-2 text-gray-800">FaceTime Mentorship</h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-[#146C94] to-[#19A7CE] mx-auto mb-6 rounded-full"></div>
+                        
+                        <!-- Pricing Section -->
+                        <div class="bg-white bg-opacity-70 rounded-xl p-4 mb-6 backdrop-blur-sm">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-[#146C94] to-[#19A7CE] rounded-lg text-white">
+                                    <span class="font-semibold">30 minutes</span>
+                                    <span class="text-xl font-bold">£40</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-[#19A7CE] to-[#146C94] rounded-lg text-white">
+                                    <span class="font-semibold">1 hour</span>
+                                    <span class="text-xl font-bold">£60</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Description -->
+                        <p class="text-gray-600 mb-6 leading-relaxed">For 121 weight loss/toning training or a sit down dinner and chat</p>
+                        
+                        <a href="#connect" class="bg-gradient-to-r from-[#146C94] to-[#19A7CE] hover:from-[#19A7CE] hover:to-[#146C94] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 inline-block text-center">
+                            <i class="fas fa-video mr-2"></i>Let's Connect
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section id="connect" class="py-16 bg-[#F6F1F1]">
+        <div class="container mx-auto px-4 relative">
+            <!-- Background Decorative Elements -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute top-10 left-1/4 w-2 h-2 bg-[#19A7CE] opacity-10 rounded-full animate-pulse" style="animation-delay: 0s; animation-duration: 3s;"></div>
+                <div class="absolute top-20 right-1/3 w-4 h-4 bg-[#146C94] opacity-15 rounded-full animate-bounce" style="animation-delay: 1s; animation-duration: 4s;"></div>
+                <div class="absolute bottom-10 left-1/3 w-4 h-4 bg-[#19A7CE] opacity-20 rounded-full animate-ping" style="animation-delay: 2s; animation-duration: 2.5s;"></div>
+                <div class="absolute bottom-20 right-1/4 w-2 h-2 bg-[#146C94] opacity-12 rounded-full animate-pulse" style="animation-delay: 0.5s; animation-duration: 3.5s;"></div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="relative z-10">
+                <!-- Title Section -->
+                <div class="text-center mb-4">
+                    <div class="inline-block relative">
+                        <h2 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#146C94] to-[#19A7CE] mb-4" style="font-family: Coterie;">Stay Connected</h2>
+                        <div class="w-32 h-1 bg-gradient-to-r from-[#19A7CE] to-[#146C94] mx-auto rounded-full"></div>
+                        <div class="w-16 h-1 bg-gradient-to-r from-[#146C94] to-[#19A7CE] mx-auto mt-2 rounded-full"></div>
+                    </div>
+                    <p class="text-black mt-6 md:text-lg text-sm max-w-2xl mx-auto">Follow Shaun's journey and get daily motivation, fitness tips, and life insights</p>
+                </div>
+                
+                <!-- Social Media Icons -->
+                <div class="flex justify-center items-center space-x-12 mb-4">
+                    <!-- Facebook -->
+                    <div class="group relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-[#19A7CE] to-[#146C94] rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 blur-lg"></div>
+                        <a href="https://www.facebook.com/profile.php?id=61577604267763" class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-white to-[#F6F1F1] rounded-full shadow-lg hover:shadow-2xl transition-all duration-500 transform group-hover:scale-110 group-hover:-translate-y-2 border-2 border-white">
+                            <i class="fab fa-facebook text-3xl text-[#146C94] group-hover:text-[#19A7CE] transition-colors duration-300"></i>
+                            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-[#19A7CE] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-sm font-semibold text-[#146C94] whitespace-nowrap">Facebook</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram -->
+                    <div class="group relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-[#146C94] to-[#19A7CE] rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 blur-lg"></div>
+                        <a href="https://www.instagram.com/truthbyshaun" class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-white to-[#F6F1F1] rounded-full shadow-lg hover:shadow-2xl transition-all duration-500 transform group-hover:scale-110 group-hover:-translate-y-2 border-2 border-white">
+                            <i class="fab fa-instagram text-3xl text-[#146C94] group-hover:text-[#19A7CE] transition-colors duration-300"></i>
+                            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-[#19A7CE] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-sm font-semibold text-[#146C94] whitespace-nowrap">Instagram</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#000000] text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center text-center">
+                <div class="mb-2">
+                    <a href="#home" class="brand-font text-2xl font-bold text-[#19A7CE]">TRUTH BY SHAUN</a>
+                    <p class="mt-2 text-gray-400">Motivation | Fitness </p>
+                </div>
+                    <p class="text-gray-400 text-sm">&copy; 2025 Truth By Shaun. All rights reserved.</p>
+                
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hero Mobile menu toggle
+        document.getElementById('hero-mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('hero-mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close hero mobile menu when clicking on a link
+        document.querySelectorAll('#hero-mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('hero-mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

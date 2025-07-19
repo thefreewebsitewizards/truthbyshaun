@@ -172,24 +172,31 @@
                 </div>
             </div>
             
+            <!-- Hero Mobile menu backdrop -->
+            <div id="hero-mobile-backdrop" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ease-in-out opacity-0"></div>
+            
             <!-- Hero Mobile menu -->
-            <div id="hero-mobile-menu" class="hidden md:hidden bg-black bg-opacity-90">
-                <div class="px-2 pt-2 pb-3 space-y-1 py-12 sm:px-6 text-center mt-8">
-                       <a href="#home" class=" mt-4 items-center text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+            <div id="hero-mobile-menu" class="hidden md:hidden fixed top-0 right-0 w-1/2 h-full bg-black bg-opacity-95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+                <!-- Close button -->
+                <button id="close-mobile-menu" class="absolute top-6 right-6 text-white hover:text-gray-300 z-60">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+                <div class="flex flex-col justify-center items-center h-full space-y-6 px-4">
+                       <a href="#home" class="text-white hover:bg-[#19A7CE] hover:text-white block px-6 py-3 rounded-md text-lg font-medium flex items-center justify-center gap-3 transition-all duration-300">
                         <i class="fas fa-home"></i> HOME
                         </a>
-                        <a href="#about" class="text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <a href="#about" class="text-white hover:bg-[#19A7CE] hover:text-white block px-6 py-3 rounded-md text-lg font-medium flex items-center justify-center gap-3 transition-all duration-300">
                         <i class="fas fa-user"></i> ABOUT
                         </a>
-                        <a href="#services" class="text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <a href="#services" class="text-white hover:bg-[#19A7CE] hover:text-white block px-6 py-3 rounded-md text-lg font-medium flex items-center justify-center gap-3 transition-all duration-300">
                         <i class="fas fa-dumbbell"></i> SERVICES
                         </a>
-                        <a href="#connect" class="text-white hover:bg-[#19A7CE] hover:text-white block px-3 py-2 rounded-md text-base font-medium flex items-center justify-center gap-2">
+                        <a href="#connect" class="text-white hover:bg-[#19A7CE] hover:text-white block px-6 py-3 rounded-md text-lg font-medium flex items-center justify-center gap-3 transition-all duration-300">
                         <i class="fas fa-phone-alt"></i> CONTACT
                         </a>
-                    <div class="flex justify-center space-x-4 py-4">
-                        <a href="https://www.facebook.com/profile.php?id=61577604267763" class="text-[#19A7CE] hover:text-white"><i class="fab fa-facebook-f text-xl"></i></a>
-                        <a href="https://www.instagram.com/truthbyshaun" class="text-[#19A7CE] hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                    <div class="flex justify-center space-x-6 py-6">
+                        <a href="https://www.facebook.com/profile.php?id=61577604267763" class="text-[#19A7CE] hover:text-white transition-colors duration-300"><i class="fab fa-facebook-f text-2xl"></i></a>
+                        <a href="https://www.instagram.com/truthbyshaun" class="text-[#19A7CE] hover:text-white transition-colors duration-300"><i class="fab fa-instagram text-2xl"></i></a>
                     </div>
                 </div>
             </div>
@@ -418,13 +425,59 @@
         // Hero Mobile menu toggle
         document.getElementById('hero-mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('hero-mobile-menu');
-            menu.classList.toggle('hidden');
+            const backdrop = document.getElementById('hero-mobile-backdrop');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                backdrop.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('translate-x-full');
+                    backdrop.classList.remove('opacity-0');
+                }, 10);
+            } else {
+                menu.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                    backdrop.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        // Close hero mobile menu when clicking the close button
+        document.getElementById('close-mobile-menu').addEventListener('click', function() {
+            const menu = document.getElementById('hero-mobile-menu');
+            const backdrop = document.getElementById('hero-mobile-backdrop');
+            menu.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            }, 300);
+        });
+
+        // Close hero mobile menu when clicking the backdrop
+        document.getElementById('hero-mobile-backdrop').addEventListener('click', function() {
+            const menu = document.getElementById('hero-mobile-menu');
+            const backdrop = document.getElementById('hero-mobile-backdrop');
+            menu.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            }, 300);
         });
 
         // Close hero mobile menu when clicking on a link
         document.querySelectorAll('#hero-mobile-menu a').forEach(link => {
             link.addEventListener('click', function() {
-                document.getElementById('hero-mobile-menu').classList.add('hidden');
+                const menu = document.getElementById('hero-mobile-menu');
+                const backdrop = document.getElementById('hero-mobile-backdrop');
+                menu.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                    backdrop.classList.add('hidden');
+                }, 300);
             });
         });
 

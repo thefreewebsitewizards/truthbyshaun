@@ -57,55 +57,82 @@
         
         .hero-video video {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             min-width: 100%;
             min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            z-index: -2;
             object-fit: cover;
+            object-position: center center;
+            z-index: -2;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        /* Desktop optimizations for larger screens */
+        @media (min-width: 769px) {
+            .hero-video video {
+                width: 100vw;
+                height: 100vh;
+                min-width: 100vw;
+                min-height: 100vh;
+            }
         }
         
         /* Mobile video optimizations */
          @media (max-width: 768px) {
+             .hero-video {
+                 position: relative;
+                 height: 100vh;
+                 height: 100dvh; /* Dynamic viewport height for mobile */
+                 overflow: hidden;
+             }
+             
              .hero-video video {
-                 position: fixed;
+                 position: absolute;
                  top: 0;
                  left: 0;
-                 width: 100vw;
-                 height: 100vh;
-                 min-width: 100vw;
-                 min-height: 100vh;
+                 width: 100%;
+                 height: 100%;
+                 min-width: 100%;
+                 min-height: 100%;
                  transform: none;
                  object-fit: cover;
                  z-index: -2;
              }
              
-             .hero-video {
-                 position: relative;
-                 height: 100vh;
-                 overflow: hidden;
-             }
-             
              .hero-video::before {
-                 position: fixed;
+                 position: absolute;
                  top: 0;
                  left: 0;
-                 width: 100vw;
-                 height: 100vh;
+                 width: 100%;
+                 height: 100%;
                  z-index: -1;
              }
          }
          
-         /* Additional iOS Safari fixes */
-         @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+         /* iOS Safari specific fixes */
+         @media (max-width: 768px) {
              .hero-video video {
-                 -webkit-transform: none;
-                 -moz-transform: none;
-                 -ms-transform: none;
-                 transform: none;
+                 -webkit-transform: translateZ(0);
+                 transform: translateZ(0);
+                 -webkit-backface-visibility: hidden;
+                 backface-visibility: hidden;
+             }
+         }
+         
+         /* Landscape mobile orientation */
+         @media (max-width: 768px) and (orientation: landscape) {
+             .hero-video {
+                 height: 100vh;
+             }
+             
+             .hero-video video {
+                 width: 100vw;
+                 height: 100vh;
+                 object-position: center center;
              }
          }
         
@@ -225,7 +252,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2">
-                    <img src="https://scontent-nrt1-1.xx.fbcdn.net/v/t39.30808-6/506988320_122096322584920142_2560974708250267544_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeFeM5vjKmioybMjYUcFxC90dsZbdGSYiWR2xlt0ZJiJZGBgqEpMX1TVEyBs2Gulz-UqVmUiLbPSMSBYERmBQW7d&_nc_ohc=mDDtWxdP7rcQ7kNvwGDW_WE&_nc_oc=Adl01U8I5ADDX0-frj4MXqnKclQmEgSUAeqaT5-Jie9EdJqKYVF4WxS7YPz5qNILdMQ&_nc_zt=23&_nc_ht=scontent-nrt1-1.xx&_nc_gid=l0h4WCaM8ap_Dmlb2rgTJA&oh=00_AfTvLwNxl1_VrX3Tmjwr8CqjFXNy5jnk4YSOneU1XYHyRg&oe=687BFDA1" alt="Shaun Training" class="md:ml-12 rounded-lg shadow-xl w-[500px] h-[500px]" style="animation: floatUpDown 4s ease-in-out infinite;">
+                    <img src="Images/imagess.jpg" alt="Shaun Training" class="md:ml-12 rounded-lg shadow-xl w-[500px] h-[500px]" style="animation: floatUpDown 4s ease-in-out infinite;">
                 </div>
                 <div class="md:w-1/2 mb-2 md:mb-0 relative">
                     <!-- Decorative Background Element -->

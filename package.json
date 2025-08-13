@@ -1,0 +1,25 @@
+{
+  "name": "truthbyshaun",
+  "version": "1.0.0",
+  "description": "Truth by Shaun - Motivation & Fitness Services",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s . -l 3000",
+    "build": "echo 'No build process needed for static HTML'"
+  },
+  "dependencies": {
+    "@stripe/stripe-js": "^2.4.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "keywords": [
+    "fitness",
+    "motivation",
+    "coaching",
+    "stripe",
+    "firebase"
+  ],
+  "author": "Shaun",
+  "license": "MIT"
+}

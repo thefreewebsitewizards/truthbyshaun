@@ -33,10 +33,10 @@ exports.createCheckoutSession = functions
     
     // Define service prices and details
     const serviceConfig = {
-      'phone-call-30': { name: 'Phone Call - 30 Minutes', price: 3000, currency: 'gbp' },
-      'phone-call-60': { name: 'Phone Call - 1 Hour', price: 4500, currency: 'gbp' },
-      'facetime-30': { name: 'FaceTime Mentorship - 30 Minutes', price: 3500, currency: 'gbp' },
-      'facetime-60': { name: 'FaceTime Mentorship - 1 Hour', price: 5000, currency: 'gbp' },
+      'phone-call-30': { name: 'Phone Call - 30 Minutes', price: 2000, currency: 'gbp' },
+      'phone-call-60': { name: 'Phone Call - 1 Hour', price: 3000, currency: 'gbp' },
+      'facetime-30': { name: 'FaceTime Mentorship - 30 Minutes', price: 2500, currency: 'gbp' },
+      'facetime-60': { name: 'FaceTime Mentorship - 1 Hour', price: 3500, currency: 'gbp' },
       'my-turn-plan-4': { name: 'THE MY TURN PLAN - 4 Week', price: 14900, currency: 'gbp' },
       'my-turn-plan-8': { name: 'THE MY TURN PLAN - 8 Week', price: 19900, currency: 'gbp' }
     };
@@ -46,6 +46,11 @@ exports.createCheckoutSession = functions
       res.status(400).json({ error: 'Invalid service type' });
       return;
     }
+    
+    // Platform (developer) fee and connect account setup
+    const developerFeePercent = 0.20; // 20%
+    const applicationFeeAmount = Math.round(service.price * developerFeePercent);
+    const connectAccountId = functions.config().stripe.connect_account_id;
     
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -62,6 +67,13 @@ exports.createCheckoutSession = functions
         quantity: 1
       }],
       mode: 'payment',
+      // Send funds to connected account and collect platform fee
+      payment_intent_data: {
+        application_fee_amount: applicationFeeAmount,
+        transfer_data: {
+          destination: connectAccountId
+        }
+      },
       success_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/index.html`,
       customer_email: customerEmail,

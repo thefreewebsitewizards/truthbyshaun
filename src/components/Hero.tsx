@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
         preload="metadata"
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
       >
-        <source src="Images/shunvid.mov" type="video/mp4" />
+        <source src="Images/vid1.mp4" type="video/mp4" />
         {/* Fallback for browsers that don't support video */}
       </video>
       

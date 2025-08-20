@@ -16,7 +16,7 @@ const About: React.FC = () => {
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <img 
-                src="Images\imagess.jpg" 
+                src="Images/imagess.jpg" 
                 alt="Shaun Jones - Fitness Coach and Motivational Speaker" 
                 className="w-full h-[500px] object-cover"
               />

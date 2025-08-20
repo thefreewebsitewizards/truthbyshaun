@@ -5,6 +5,52 @@ const nodemailer = require('nodemailer');
 
 admin.initializeApp();
 
+// Import webhook handler
+// Create Order from Stripe Function
+exports.createOrderFromStripe = functions.https.onRequest(async (req, res) => {
+  // Set CORS headers
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).send('');
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    res.status(405).json({ success: false, error: 'Method not allowed' });
+    return;
+  }
+
+  try {
+    const { customerName, customerEmail, customerPhone, serviceName, amount, paymentStatus, sessionId, notes } = req.body;
+
+    // Create order data
+    const orderData = {
+      customerName: customerName || 'Customer',
+      email: customerEmail,
+      phone: customerPhone || '',
+      service: serviceName,
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+      status: paymentStatus === 'paid' ? 'completed' : 'pending',
+      amount: amount / 100, // Convert pence to pounds
+      notes: notes || '',
+      createdAt: admin.firestore.Timestamp.now(),
+      updatedAt: admin.firestore.Timestamp.now()
+    };
+
+    // Add to Firestore
+    const docRef = await admin.firestore().collection('truthbyshaun_orders').add(orderData);
+    
+    res.json({ success: true, orderId: docRef.id });
+  } catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Gmail transporter setup
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -48,7 +94,7 @@ exports.createCheckoutSession = functions
     }
     
     // Platform (developer) fee and connect account setup
-    const developerFeePercent = 0.20; // 20%
+    const developerFeePercent = 0.129; // 12.9%
     const applicationFeeAmount = Math.round(service.price * developerFeePercent);
     const connectAccountId = functions.config().stripe.connect_account_id;
     
@@ -74,8 +120,8 @@ exports.createCheckoutSession = functions
           destination: connectAccountId
         }
       },
-      success_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/index.html`,
+      success_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/`,
       customer_email: customerEmail,
       metadata: {
         serviceId: serviceId,
@@ -181,39 +227,38 @@ exports.getCheckoutSession = functions
 });
 
 // Get All Orders
-exports.getAllOrders = functions
-  .runWith({ memory: '256MB', timeoutSeconds: 60 })
-  .https.onRequest(async (req, res) => {
-  // Enable CORS
+exports.getAllOrders = functions.https.onRequest(async (req, res) => {
+  // Set CORS headers
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.set('Access-Control-Allow-Headers', 'Content-Type');
-  
+
   if (req.method === 'OPTIONS') {
-    res.status(204).send('');
+    res.status(200).send('');
     return;
   }
-  
+
   try {
-    // Retrieve recent checkout sessions
     const sessions = await stripe.checkout.sessions.list({
-      limit: 100
+      limit: 100,
+      expand: ['data.line_items']
     });
-    
+
     const orders = sessions.data.map(session => ({
       id: session.id,
-      amount: session.amount_total,
-      currency: session.currency,
-      status: session.payment_status,
-      created: session.created,
-      customer_email: session.customer_email,
-      serviceName: session.metadata.serviceName,
-      customerName: session.metadata.customerName
+      customerName: session.customer_details?.name || 'N/A',
+      customerEmail: session.customer_details?.email || 'N/A',
+      customerPhone: session.customer_details?.phone || 'N/A',
+      serviceName: session.line_items?.data[0]?.description || 'N/A',
+      amount: session.amount_total || 0,
+      currency: session.currency || 'gbp',
+      paymentStatus: session.payment_status,
+      createdAt: new Date(session.created * 1000).toISOString()
     }));
-    
-    res.json({ orders });
+
+    res.json({ success: true, orders });
   } catch (error) {
-    console.error('Error retrieving orders:', error);
-    res.status(500).json({ error: 'Unable to retrieve orders' });
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });

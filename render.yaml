@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: truthbyshaun
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: "*.mp4"
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: "*.mov"
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: "*.webm"
+        name: Cache-Control
+        value: public, max-age=31536000, immutable

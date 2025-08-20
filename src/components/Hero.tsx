@@ -26,15 +26,16 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="hero-video flex flex-col text-white relative min-h-screen overflow-hidden">
       {/* Background Video */}
-      <video 
-        autoPlay 
-        muted 
-        loop 
-        playsInline 
-        preload="metadata"
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
       >
-        <source src="Images/vid1.mp4" type="video/mp4" />
+        <source src="/shunvid.mov" type="video/quicktime" />
+        <source src="/vid1.mp4" type="video/mp4" />
         {/* Fallback for browsers that don't support video */}
       </video>
       

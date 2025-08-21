@@ -2,6 +2,60 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [videoError, setVideoError] = React.useState(false);
+  const [videoLoaded, setVideoLoaded] = React.useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      const handleLoadedData = () => {
+         setVideoLoaded(true);
+         
+         // Add a small delay for better loading
+         setTimeout(() => {
+           video.play().catch(error => {
+             console.error('Video autoplay failed:', error);
+             setVideoError(true);
+           });
+         }, 100);
+       };
+
+      const handleError = (e: any) => {
+         console.error('Video loading error:', e);
+         setVideoError(true);
+       };
+
+      const handleCanPlay = () => {
+         if (!videoLoaded) {
+           video.play().catch(error => {
+             console.error('Video play failed:', error);
+             setVideoError(true);
+           });
+         }
+       };
+
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('error', handleError);
+      video.addEventListener('canplay', handleCanPlay);
+
+      video.load();
+       
+       // Set a timeout for video loading
+       const loadTimeout = setTimeout(() => {
+         if (!videoLoaded && !videoError) {
+           setVideoError(true);
+         }
+       }, 10000); // 10 second timeout
+       
+       return () => {
+         clearTimeout(loadTimeout);
+         video.removeEventListener('loadeddata', handleLoadedData);
+         video.removeEventListener('error', handleError);
+         video.removeEventListener('canplay', handleCanPlay);
+       };
+    }
+  }, [videoLoaded]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -27,17 +81,53 @@ const Hero: React.FC = () => {
     <section id="home" className="hero-video flex flex-col text-white relative min-h-screen overflow-hidden">
       {/* Background Video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
+        poster="/imagess.jpg"
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        crossOrigin="anonymous"
+        onClick={() => {
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(error => {
+              console.error('Manual video play failed:', error);
+            });
+          }
+        }}
       >
-        <source src="/shunvid.mov" type="video/quicktime" />
-        <source src="/vid1.mp4" type="video/mp4" />
-        {/* Fallback for browsers that don't support video */}
+        <source src="https://0ltstwjeqblpucqt.public.blob.vercel-storage.com/shunvid.mov" type="video/quicktime" />
+        Your browser does not support the video tag.
       </video>
+      
+      {/* Static Image Fallback */}
+      {videoError && (
+        <div 
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-5"
+          style={{ backgroundImage: 'url(/imagess.jpg)' }}
+        />
+      )}
+      
+      {/* Video Error/Click to Play Overlay */}
+       {videoError && (
+         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 z-40 flex items-center justify-center cursor-pointer"
+              onClick={() => {
+                if (videoRef.current) {
+                  videoRef.current.play().then(() => {
+                    setVideoError(false);
+                  }).catch(error => {
+                    console.error('Manual video play failed:', error);
+                  });
+                }
+              }}>
+           <div className="text-center text-white">
+             <div className="text-6xl mb-4">▶️</div>
+             <p className="text-lg">Click to play video</p>
+           </div>
+         </div>
+       )}
       
       {/* Video Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"></div>

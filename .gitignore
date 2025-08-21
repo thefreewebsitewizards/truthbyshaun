@@ -48,4 +48,16 @@ dist/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# CLI tools and temporary files
+*.exe
+*.zip
+render-cli*
+cli_*
+
+# Debug and test files
+*debug*
+*test*.html
+video-urls.json
+upload-videos.js
 .vercel

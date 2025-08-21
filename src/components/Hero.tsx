@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
         crossOrigin="anonymous"
 
       >
-        <source src="/vid1.mp4" type="video/mp4" />
+        <source src="https://0ltstwjeqblpucqt.public.blob.vercel-storage.com/hero-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       

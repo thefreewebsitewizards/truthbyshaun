@@ -2,12 +2,11 @@
   "name": "truthbyshaun",
   "version": "1.0.0",
   "description": "Truth by Shaun - Motivation & Fitness Services",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@stripe/stripe-js": "^2.4.0",
@@ -21,12 +20,24 @@
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
+    "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "typescript": "^4.9.5",
+    "web-vitals": "^3.5.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "keywords": [
     "fitness",

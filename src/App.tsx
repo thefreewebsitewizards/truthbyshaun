@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
@@ -50,7 +49,6 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-brand-bg">
-      <Navbar />
       <Home onOpenBooking={openBookingModal} />
       <Footer />
       

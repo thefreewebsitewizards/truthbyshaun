@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
       // Simple authentication - in production, this should be a proper API call
-      if (username === 'admin' && password === 'admin123') {
+      if (username === 'truthbyshaunadmin' && password === 'Truth2024!@#') {
         localStorage.setItem('authToken', 'authenticated');
         setIsAuthenticated(true);
         return true;

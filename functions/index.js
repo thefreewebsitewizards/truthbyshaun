@@ -76,6 +76,7 @@ exports.createCheckoutSession = functions
   
   try {
     const { serviceId, customerName, customerEmail } = req.body;
+    console.log('Request body:', req.body);
     
     // Define service prices and details
     const serviceConfig = {
@@ -98,6 +99,8 @@ exports.createCheckoutSession = functions
     const applicationFeeAmount = Math.round(service.price * developerFeePercent);
     const connectAccountId = functions.config().stripe.connect_account_id;
     
+    console.log('Creating Stripe checkout session for service:', service.name);
+
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -114,12 +117,12 @@ exports.createCheckoutSession = functions
       }],
       mode: 'payment',
       // Send funds to connected account and collect platform fee
-      payment_intent_data: {
-        application_fee_amount: applicationFeeAmount,
-        transfer_data: {
-          destination: connectAccountId
-        }
-      },
+      // payment_intent_data: {
+      //   application_fee_amount: applicationFeeAmount,
+      //   transfer_data: {
+      //     destination: connectAccountId
+      //   }
+      // },
       success_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.get('origin') || 'https://truthbyshaun-project.web.app'}/`,
       customer_email: customerEmail,
@@ -130,6 +133,8 @@ exports.createCheckoutSession = functions
         customerEmail: customerEmail
       }
     });
+
+    console.log('Stripe session created:', session.id, session.url);
     
     res.json({ sessionId: session.id, url: session.url });
   } catch (error) {
